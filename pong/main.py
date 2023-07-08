@@ -16,8 +16,15 @@ pygame.display.set_caption("Pong")
 x_jogador1 = 74
 y_jogador1_cima = 265
 y_jogador1_baixo = 454
-velocidade = 1
-movimentoY = 0
+subindo1 = False
+descendo1 = False
+
+#jogador 2
+x_jogador2 = 1205
+y_jogador2_cima = 265
+y_jogador2_baixo = 454
+subindo2 = False
+descendo2 = False
 
 running = True
 while running:
@@ -26,17 +33,24 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+            subindo1 = True
+        if event.type == pygame.KEYUP and event.key == pygame.K_w:
+            subindo1 = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            descendo1 = True
+        if event.type == pygame.KEYUP and event.key == pygame.K_s:
+            descendo1 = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-            movimentoY = y_jogador1_baixo - velocidade
-            movimentoY = y_jogador1_cima - velocidade
+            subindo2 = True
         if event.type == pygame.KEYUP and event.key == pygame.K_UP:
-            movimentoY = 0
+            subindo2 = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
-            movimentoY = y_jogador1_baixo + velocidade
-            movimentoY = y_jogador1_cima + velocidade
+            descendo2 = True
         if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
-            movimentoY = 0
-
+            descendo2 = False
+        
+            
     tela.fill(verde)
     
     #desenho do campo
@@ -49,20 +63,40 @@ while running:
     pygame.draw.line(tela,branco,(642,0),(642,720),4)
 
     #goleiros e bola
+    #jogador 1
     pygame.draw.line(tela, preto,(x_jogador1,y_jogador1_cima) , (x_jogador1,y_jogador1_baixo),5)
-    pygame.draw.line(tela,preto,(1205,454),(1205,265),5)
+    #jogador 2
+    pygame.draw.line(tela,preto,(x_jogador2,y_jogador2_cima),(x_jogador2,y_jogador2_baixo),5)
+    #bola
     pygame.draw.circle(tela,preto,(642,360),10)
 
-    y_jogador1_cima = y_jogador1_cima - movimentoY
-    y_jogador1_baixo = y_jogador1_baixo - movimentoY
-    
-    if y_jogador1_baixo and y_jogador1_cima <= 0:
+    if subindo1:
+        y_jogador1_cima -= 8
+        y_jogador1_baixo -= 8
+    if descendo1:
+        y_jogador1_cima += 8
+        y_jogador1_baixo += 8
+
+    if y_jogador1_cima <= 0:
         y_jogador1_cima = 0
         y_jogador1_baixo = 189
-
-    if y_jogador1_baixo and y_jogador1_cima >= 720:
+    if y_jogador1_baixo >= 720:
         y_jogador1_cima = 531
         y_jogador1_baixo = 720
+
+    if subindo2:
+        y_jogador2_cima -= 8
+        y_jogador2_baixo -= 8
+    if descendo2:
+        y_jogador2_cima += 8
+        y_jogador2_baixo += 8
+
+    if y_jogador2_cima <= 0:
+        y_jogador2_cima = 0
+        y_jogador2_baixo = 189
+    if y_jogador2_baixo >= 720:
+        y_jogador2_cima = 531
+        y_jogador2_baixo = 720
 
     pygame.display.update()
     clock.tick(144)
