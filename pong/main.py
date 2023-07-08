@@ -35,6 +35,11 @@ vel_x = 4
 vel_y = 4
 raio = 10
 
+#resultado
+pontos1 = 0
+pontos2 = 0
+fonte = pygame.font.Font(None,80)
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -71,6 +76,12 @@ while running:
     pygame.draw.line(tela,branco,(-2,1),(1282,1),4)
     pygame.draw.line(tela,branco,(largura // 2,0),(largura // 2,720),4)
 
+    #pontuação
+    pontuacao1 = fonte.render(str(pontos1), True, branco)
+    tela.blit(pontuacao1,(320,50))
+    pontuacao2 = fonte.render(str(pontos2),True,branco)
+    tela.blit(pontuacao2,(960,50))
+
     #goleiros e bola
     #jogador 1
     pygame.draw.line(tela, preto,(x_jogador1,y_jogador1_cima) , (x_jogador1,y_jogador1_baixo),5)
@@ -80,9 +91,12 @@ while running:
     pygame.draw.circle(tela,preto,(pos_x,pos_y),raio)
     pos_x += vel_x
     pos_y += vel_y
-    
     if pos_x <= 0 or pos_x >= largura:
         vel_x = -vel_x
+        if pos_x <=0:
+            pontos2 += 1
+        elif pos_x >= largura:
+            pontos1 += 1
     if pos_y <= 0 or pos_y >= altura:
         vel_y = -vel_y
 
