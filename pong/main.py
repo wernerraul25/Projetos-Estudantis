@@ -65,7 +65,6 @@ while running:
             descendo2 = True
         if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
             descendo2 = False
-        
             
     tela.fill(verde)
     
@@ -106,7 +105,6 @@ while running:
         jogador1_y -= 8
     if descendo1:
         jogador1_y += 8
-
     if jogador1_y <= 0:
         jogador1_y = 0
     if jogador1_y >= 531:
@@ -116,11 +114,20 @@ while running:
         jogador2_y -= 8
     if descendo2:
         jogador2_y += 8
-
     if jogador2_y <= 0:
         jogador2_y = 0
     if jogador2_y >= 531:
         jogador2_y = 531
+
+    #colisão bola jogador 1
+    if pos_y + raio >= jogador1_y and pos_x >= jogador1_x and pos_x <= jogador1_x + jogador1_largura:
+        vel_x = -vel_x
+        vel_y = -vel_y
+    
+    #colisão bola jogador 2
+    if pos_y + raio >= jogador2_y and pos_x >= jogador2_x and pos_x <= jogador2_x + jogador2_largura:
+        vel_x = -vel_x
+        vel_y = -vel_y
 
     pygame.display.update()
     clock.tick(144)
