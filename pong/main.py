@@ -120,12 +120,12 @@ while running:
         jogador2_y = 531
 
     #colisão bola jogador 1
-    if pos_y + raio >= jogador1_y and pos_x >= jogador1_x and pos_x <= jogador1_x + jogador1_largura:
+    if pos_y + raio >= jogador1_y and pos_y + raio <= jogador1_y + jogador1_altura and pos_x >= jogador1_x and pos_x <= jogador1_x + jogador1_largura:
         vel_x = -vel_x
         vel_y = -vel_y
     
     #colisão bola jogador 2
-    if pos_y + raio >= jogador2_y and pos_x >= jogador2_x and pos_x <= jogador2_x + jogador2_largura:
+    if pos_y + raio >= jogador2_y and pos_y + raio <= jogador2_y + jogador2_altura and pos_x >= jogador2_x and pos_x <= jogador2_x + jogador2_largura:
         vel_x = -vel_x
         vel_y = -vel_y
 
