@@ -15,16 +15,18 @@ pygame.display.set_caption("Pong")
 
 #variaveis
 #jogador 1
-x_jogador1 = 74
-y_jogador1_cima = 265
-y_jogador1_baixo = 454
+jogador1_altura = 189
+jogador1_largura = 5
+jogador1_y = 360 - ( jogador1_altura //2)
+jogador1_x = 74
 subindo1 = False
 descendo1 = False
 
 #jogador 2
-x_jogador2 = 1205
-y_jogador2_cima = 265
-y_jogador2_baixo = 454
+jogador2_altura = 189
+jogador2_largura = 5
+jogador2_y = 360 - (jogador2_altura // 2)
+jogador2_x = 1205
 subindo2 = False
 descendo2 = False
 
@@ -84,9 +86,9 @@ while running:
 
     #goleiros e bola
     #jogador 1
-    pygame.draw.line(tela, preto,(x_jogador1,y_jogador1_cima) , (x_jogador1,y_jogador1_baixo),5)
+    pygame.draw.rect(tela,preto,(jogador1_x,jogador1_y,jogador1_largura,jogador1_altura))
     #jogador 2
-    pygame.draw.line(tela,preto,(x_jogador2,y_jogador2_cima),(x_jogador2,y_jogador2_baixo),5)
+    pygame.draw.rect(tela,preto,(jogador2_x,jogador2_y,jogador2_largura,jogador2_altura))
     #bola
     pygame.draw.circle(tela,preto,(pos_x,pos_y),raio)
     pos_x += vel_x
@@ -101,32 +103,24 @@ while running:
         vel_y = -vel_y
 
     if subindo1:
-        y_jogador1_cima -= 8
-        y_jogador1_baixo -= 8
+        jogador1_y -= 8
     if descendo1:
-        y_jogador1_cima += 8
-        y_jogador1_baixo += 8
+        jogador1_y += 8
 
-    if y_jogador1_cima <= 0:
-        y_jogador1_cima = 0
-        y_jogador1_baixo = 189
-    if y_jogador1_baixo >= 720:
-        y_jogador1_cima = 531
-        y_jogador1_baixo = 720
-
+    if jogador1_y <= 0:
+        jogador1_y = 0
+    if jogador1_y >= 531:
+        jogador1_y = 531
+    
     if subindo2:
-        y_jogador2_cima -= 8
-        y_jogador2_baixo -= 8
+        jogador2_y -= 8
     if descendo2:
-        y_jogador2_cima += 8
-        y_jogador2_baixo += 8
+        jogador2_y += 8
 
-    if y_jogador2_cima <= 0:
-        y_jogador2_cima = 0
-        y_jogador2_baixo = 189
-    if y_jogador2_baixo >= 720:
-        y_jogador2_cima = 531
-        y_jogador2_baixo = 720
+    if jogador2_y <= 0:
+        jogador2_y = 0
+    if jogador2_y >= 531:
+        jogador2_y = 531
 
     pygame.display.update()
     clock.tick(144)
