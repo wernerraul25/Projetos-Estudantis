@@ -21,8 +21,8 @@ pygame.display.set_caption("Pong")
 #sons
 tetra = pygame.mixer.Sound("tetra.mp3")
 tetra.set_volume(0.1)
-champions = pygame.mixer.Sound("champions.mp3")
-champions.set_volume(0.05)
+champions = pygame.mixer.Sound("champions.wav")
+champions.set_volume(0.03)
 estadio = pygame.mixer.Sound("estadio.mp3")
 estadio.set_volume(0.05)
 
