@@ -33,8 +33,8 @@ descendo2 = False
 #bola
 pos_x = largura // 2
 pos_y = altura // 2
-vel_x = 4
-vel_y = 4
+vel_x = 3
+vel_y = 3
 raio = 10
 
 #resultado
@@ -98,6 +98,9 @@ while running:
             pontos2 += 1
         elif pos_x >= largura:
             pontos1 += 1
+        pos_x = largura // 2
+        pos_y = altura // 2
+        
     if pos_y <= 0 or pos_y >= altura:
         vel_y = -vel_y
 
