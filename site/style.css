@@ -1,0 +1,18 @@
+.inputs{
+    width:200;
+    height: 300;
+    background-color: red;
+    text-decoration-color:black;
+    color: white;
+    font: message-box;
+    text-align: center;
+}
+
+#entrar{
+    width: 150;
+    height: 150;
+    background-color: white;
+    color: red;
+    font: message-box;
+    text-align: center;
+}
