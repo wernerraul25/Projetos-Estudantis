@@ -19,18 +19,18 @@ tela = pygame.display.set_mode(tamanho)
 pygame.display.set_caption("Pong")
 
 #sons
-tetra = pygame.mixer.Sound("tetra.mp3")
+'''tetra = pygame.mixer.Sound("tetra.mp3")
 tetra.set_volume(0.1)
 champions = pygame.mixer.Sound("champions.wav")
 champions.set_volume(0.03)
 estadio = pygame.mixer.Sound("estadio.mp3")
-estadio.set_volume(0.05)
+estadio.set_volume(0.05)'''
 
 #variaveis
 
 #fontes
 fonte = pygame.font.Font(None,80)
-fonte_inicial = pygame.font.Font(None,50)
+fonte_media = pygame.font.Font(None,50)
 fonte_pequena = pygame.font.Font(None,30)
 
 #jogador 1
@@ -66,6 +66,10 @@ tela1 = True
 tela2 = False
 tela3 = False
 
+#bots
+bot_sim = False
+bot_nao = False
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -74,7 +78,20 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
         if tela1:
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
+                bot_sim = True
+                tela1 = False
+                tela2 = True
+                vel_x = 5
+                vel_y = 5
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_KP_1:
+                bot_sim = True
+                tela1 = False
+                tela2 = True
+                vel_x = 5
+                vel_y = 5
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_2:
+                bot_nao = True
                 tela1 = False
                 tela2 = True
                 vel_x = 5
@@ -83,35 +100,38 @@ while running:
         if tela2:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
                 subindo1 = True
-            if event.type == pygame.KEYUP and event.key == pygame.K_w:
+            elif event.type == pygame.KEYUP and event.key == pygame.K_w:
                 subindo1 = False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
                 descendo1 = True
-            if event.type == pygame.KEYUP and event.key == pygame.K_s:
+            elif event.type == pygame.KEYUP and event.key == pygame.K_s:
                 descendo1 = False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
                 subindo2 = True
-            if event.type == pygame.KEYUP and event.key == pygame.K_UP:
+            elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
                 subindo2 = False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
                 descendo2 = True
-            if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
+            elif event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
                 descendo2 = False
 
     if tela1:
         tela.fill(cinza)
-        champions.play()
-        texto_inicio = fonte_inicial.render("Aperte ESPAÇO para iniciar",True,branco)
-        tela.blit(texto_inicio,(400,altura//2))
+        #champions.play()
+        opcao_jogo = fonte_media.render("Aperte 1 para jogar contra BOT",True, branco)
+        opcao_jogo2 = fonte_media.render("Aperte 2 para jogar em dupla",True,branco)
+        tela.blit(opcao_jogo,(370,300))
+        tela.blit(opcao_jogo2,(380,350))
         creditos = fonte_pequena.render("By: Raul Werner",True,branco)
         tela.blit(creditos,(1100,700))
         pong = fonte.render("PONG",True,vermelho)
         tela.blit(pong,(530,altura//2 - 200))
+        
 
-    if tela2:        
+    elif tela2:
         tela.fill(verde)
-        champions.stop()
-        estadio.play()
+        #champions.stop()
+        #estadio.play()
         #desenho do campo
         pygame.draw.circle(tela,branco,(largura // 2,altura // 2),84)
         pygame.draw.circle(tela,verde,(largura // 2,altura // 2),80)
@@ -150,21 +170,25 @@ while running:
 
         if subindo1:
             jogador1_y -= 8
-        if descendo1:
+        elif descendo1:
             jogador1_y += 8
         if jogador1_y <= 0:
             jogador1_y = 0
-        if jogador1_y >= 531:
+        elif jogador1_y >= 531:
             jogador1_y = 531
         
-        if subindo2:
-            jogador2_y -= 8
-        if descendo2:
-            jogador2_y += 8
-        if jogador2_y <= 0:
-            jogador2_y = 0
-        if jogador2_y >= 531:
-            jogador2_y = 531
+        if bot_nao:
+            if subindo2:
+                jogador2_y -= 8
+            if descendo2:
+                jogador2_y += 8
+            if jogador2_y <= 0:
+                jogador2_y = 0
+            if jogador2_y >= 531:
+                jogador2_y = 531
+
+        elif bot_sim:
+            jogador2_y = pos_y - 90
 
         #colisão bola jogador 1
         if pos_y + raio >= jogador1_y and pos_y + raio <= jogador1_y + jogador1_altura and pos_x >= jogador1_x and pos_x <= jogador1_x + jogador1_largura:
@@ -184,15 +208,15 @@ while running:
             tela2 = False
             tela3 = True
 
-    if tela3:
+    elif tela3:
         tela.fill(cinza)
-        estadio.stop()
-        tetra.play()
+        #estadio.stop()
+        #tetra.play()
         if pontos1 > pontos2:
-            ganhador1 = fonte_inicial.render("O Jogador 1 foi o vencedor com "+str(pontos1)+" pontos!",True, verde)
+            ganhador1 = fonte_media.render("O Jogador 1 foi o vencedor com "+str(pontos1)+" pontos!",True, verde)
             tela.blit(ganhador1,(300,altura//2))
         elif pontos2 > pontos1:
-            ganhador2 = fonte_inicial.render("O Jogador 2 foi o vencedor com "+str(pontos2)+" pontos!",True, verde)
+            ganhador2 = fonte_media.render("O Jogador 2 foi o vencedor com "+str(pontos2)+" pontos!",True, verde)
             tela.blit(ganhador2,(300,altura//2))
 
     pygame.display.update()
