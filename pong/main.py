@@ -75,7 +75,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
         if tela1:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
@@ -91,6 +91,12 @@ while running:
                 vel_x = 5
                 vel_y = 5
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_2:
+                bot_nao = True
+                tela1 = False
+                tela2 = True
+                vel_x = 5
+                vel_y = 5
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_KP_2:
                 bot_nao = True
                 tela1 = False
                 tela2 = True
@@ -158,6 +164,7 @@ while running:
         pos_y += vel_y
         if pos_x <= 0 or pos_x >= largura:
             vel_x = -vel_x
+            vel_y = -vel_y
             if pos_x <=0:
                 pontos2 += 1
             elif pos_x >= largura:
@@ -212,12 +219,20 @@ while running:
         tela.fill(cinza)
         #estadio.stop()
         #tetra.play()
-        if pontos1 > pontos2:
-            ganhador1 = fonte_media.render("O Jogador 1 foi o vencedor com "+str(pontos1)+" pontos!",True, verde)
-            tela.blit(ganhador1,(300,altura//2))
-        elif pontos2 > pontos1:
-            ganhador2 = fonte_media.render("O Jogador 2 foi o vencedor com "+str(pontos2)+" pontos!",True, verde)
-            tela.blit(ganhador2,(300,altura//2))
+        if bot_nao:
+            if pontos1 > pontos2:
+                ganhador1 = fonte_media.render("O Jogador 1 foi o vencedor com "+str(pontos1)+" pontos!",True, verde)
+                tela.blit(ganhador1,(300,altura//2))
+            elif pontos2 > pontos1:
+                ganhador2 = fonte_media.render("O Jogador 2 foi o vencedor com "+str(pontos2)+" pontos!",True, verde)
+                tela.blit(ganhador2,(300,altura//2))
+        elif bot_sim:
+            if pontos1 > pontos2:
+                ganhador1 = fonte_media.render("O Jogador 1 foi o vencedor com "+str(pontos1)+" pontos!",True, verde)
+                tela.blit(ganhador1,(300,altura//2))
+            elif pontos2 > pontos1:
+                ganhador2 = fonte_media.render("O BOT Pelé foi o vencedor com "+str(pontos2)+" pontos!",True, verde)
+                tela.blit(ganhador2,(305,altura//2))
 
     pygame.display.update()
     clock.tick(144)
