@@ -19,12 +19,12 @@ tela = pygame.display.set_mode(tamanho)
 pygame.display.set_caption("Pong")
 
 #sons
-'''tetra = pygame.mixer.Sound("tetra.mp3")
+tetra = pygame.mixer.Sound("tetra.mp3")
 tetra.set_volume(0.1)
 champions = pygame.mixer.Sound("champions.wav")
 champions.set_volume(0.03)
 estadio = pygame.mixer.Sound("estadio.mp3")
-estadio.set_volume(0.05)'''
+estadio.set_volume(0.05)
 
 #variaveis
 
@@ -104,26 +104,44 @@ while running:
                 vel_y = 5
 
         if tela2:
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
-                subindo1 = True
-            elif event.type == pygame.KEYUP and event.key == pygame.K_w:
-                subindo1 = False
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-                descendo1 = True
-            elif event.type == pygame.KEYUP and event.key == pygame.K_s:
-                descendo1 = False
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-                subindo2 = True
-            elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
-                subindo2 = False
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
-                descendo2 = True
-            elif event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
-                descendo2 = False
+            if bot_nao:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+                    subindo1 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_w:
+                    subindo1 = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+                    descendo1 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_s:
+                    descendo1 = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+                    subindo2 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
+                    subindo2 = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
+                    descendo2 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
+                    descendo2 = False
+            elif bot_sim:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+                    subindo1 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_w:
+                    subindo1 = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+                    descendo1 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_s:
+                    descendo1 = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+                    subindo1 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_UP:
+                    subindo1 = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
+                    descendo1 = True
+                elif event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
+                    descendo1 = False
 
     if tela1:
         tela.fill(cinza)
-        #champions.play()
+        champions.play()
         opcao_jogo = fonte_media.render("Aperte 1 para jogar contra BOT",True, branco)
         opcao_jogo2 = fonte_media.render("Aperte 2 para jogar em dupla",True,branco)
         tela.blit(opcao_jogo,(370,300))
@@ -136,8 +154,8 @@ while running:
 
     elif tela2:
         tela.fill(verde)
-        #champions.stop()
-        #estadio.play()
+        champions.stop()
+        estadio.play()
         #desenho do campo
         pygame.draw.circle(tela,branco,(largura // 2,altura // 2),84)
         pygame.draw.circle(tela,verde,(largura // 2,altura // 2),80)
@@ -217,8 +235,8 @@ while running:
 
     elif tela3:
         tela.fill(cinza)
-        #estadio.stop()
-        #tetra.play()
+        estadio.stop()
+        tetra.play()
         if bot_nao:
             if pontos1 > pontos2:
                 ganhador1 = fonte_media.render("O Jogador 1 foi o vencedor com "+str(pontos1)+" pontos!",True, verde)
