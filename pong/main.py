@@ -17,6 +17,8 @@ vermelho = (255,0,0)
 clock = pygame.time.Clock()
 tela = pygame.display.set_mode(tamanho)
 pygame.display.set_caption("Pong")
+icone  = pygame.image.load("icone_pong.png")
+pygame.display.set_icon(icone)
 
 #sons
 tetra = pygame.mixer.Sound("tetra.mp3")
