@@ -22,7 +22,9 @@ cima = False
 baixo = False
 esquerda = False
 direita = False
-cobra = [640,360,10,10]
+locaisy_cobra = [360]
+locaisx_cobra = [640]
+cobra = []
 x = aleatorio(1,1270)
 y = aleatorio(1,710)
 comida = [x,y,10,10]
@@ -54,21 +56,28 @@ while running:
 
     tela.fill(preto)
 
-    pygame.draw.rect(tela,verde,(cobra))
+    for x in locaisx_cobra:
+        for y in locaisy_cobra:
+            cobra = [x,y,10,10]
+            pygame.draw.rect(tela,verde,(cobra))
+
     pygame.draw.rect(tela,vermelho,(comida))
 
+    '''if (locaisx_cobra[0] < x + 10) and (locaisx_cobra[0] + 10 > x) and (locaisy_cobra[0] < y + 10) and (locaisy_cobra[0] + 10 > y):
+        x = aleatorio(1,1270)
+        y = aleatorio(1,710)
+        comida = [x,y,10,10]'''
+
     if direita:
-        cobra[0] += 2
+        locaisx_cobra[0] += 10
     if esquerda:
-        cobra[0] -= 2
+        locaisx_cobra[0] -= 10
     if cima:
-        cobra[1] -= 2
+        locaisy_cobra[0] -= 10
     if baixo:
-        cobra[1] += 2
-
-
+        locaisy_cobra[0] += 10
 
     pygame.display.update()
-    clock.tick(144)
+    clock.tick(20)
 
 pygame.quit()
